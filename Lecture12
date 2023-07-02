@@ -1,0 +1,51 @@
+Q1 (Balanced BST) /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+class Solution {
+public:
+    int inBal(TreeNode* root) {
+        if(root == NULL) {
+            return 0;
+        }
+        if(root->left == NULL && root->right == NULL) {
+            return 1;
+        }
+        int left = inBal(root->left);
+        int right = inBal(root->right);
+        if(left == -1 || right == -1) {
+            return -1;
+        }
+        if(abs(left - right) > 1) {
+            return -1;
+        }
+        return max(left, right) + 1;
+    }
+
+    bool isBalanced(TreeNode* root) {
+        if(inBal(root) == -1) {
+            return false;
+        }
+        return true;
+    }
+};
+
+Q2 (Unique BST) /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+class Solution {
+public:
+    int numTrees(int n) {
+        vector<int> dp(n+1);
+        dp[0]=1;
+        for(int i=1;i<=n;i++)
+        {
+            int sum=0;
+            for(int j=0;j<i;j++)
+            {
+                sum+=dp[j]*dp[i-j-1];
+            }
+            dp[i]=sum;
+        }
+        return dp[n];
+    }
+};
+
+
