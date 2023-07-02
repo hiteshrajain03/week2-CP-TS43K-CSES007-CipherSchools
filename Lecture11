@@ -1,0 +1,41 @@
+Q1 (sorted array to BST) ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+class Solution {
+public:
+    TreeNode* sortedArrayToBST(vector<int>& nums) {
+        if(nums.size()==0) return NULL;
+        if(nums.size()==1) return new TreeNode(nums[0]);
+        int middle=nums.size()/2;
+        TreeNode* root=new TreeNode(nums[middle]);
+        vector<int> leftsub(nums.begin(),nums.begin()+middle);
+        vector<int> rightsub(nums.begin()+middle+1,nums.end());
+        root->left=sortedArrayToBST(leftsub);
+        root->right=sortedArrayToBST(rightsub);
+        return root;
+    }
+};
+
+Q2 (LCA of BST) //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if(root == NULL) {
+            return root;
+        }
+        if(root->val > p->val && root->val > q->val) {
+            return lowestCommonAncestor(root->left, p, q);
+        }
+        else if(root->val < p->val && root->val < q->val) {
+            return lowestCommonAncestor(root->right, p, q);
+        }
+        else {
+            return root;
+        }
+    }
+};
+
+
+
+
+
